@@ -95,3 +95,8 @@ func (*PresignedNoopStorage) Bucket(string) string {
 func (*PresignedNoopStorage) BlobObject(name string) (string, error) {
 	return "", nil
 }
+
+// BackupObject returns a backup's object name that a direct downloader would download
+func (*PresignedNoopStorage) BackupObject(workspaceID string, name string) string {
+	return ""
+}

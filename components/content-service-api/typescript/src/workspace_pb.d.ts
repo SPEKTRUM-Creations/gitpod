@@ -65,6 +65,9 @@ export class DeleteWorkspaceRequest extends jspb.Message {
     getWorkspaceId(): string;
     setWorkspaceId(value: string): DeleteWorkspaceRequest;
 
+    getIncludeSnapshots(): boolean;
+    setIncludeSnapshots(value: boolean): DeleteWorkspaceRequest;
+
 
     serializeBinary(): Uint8Array;
     toObject(includeInstance?: boolean): DeleteWorkspaceRequest.AsObject;
@@ -80,6 +83,7 @@ export namespace DeleteWorkspaceRequest {
     export type AsObject = {
         ownerId: string,
         workspaceId: string,
+        includeSnapshots: boolean,
     }
 }
 

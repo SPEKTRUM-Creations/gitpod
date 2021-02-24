@@ -111,10 +111,6 @@ func (rs *DirectGCPStorage) Validate() error {
 	)
 }
 
-const (
-	contentTypeTar = "application/x-tar"
-)
-
 // Init initializes the remote storage - call this before calling anything else on the interface
 func (rs *DirectGCPStorage) Init(ctx context.Context, owner, workspace string) (err error) {
 	span, ctx := opentracing.StartSpanFromContext(ctx, "GCloudBucketRemotegcpStorage.Init")
@@ -658,12 +654,16 @@ func gcpBucketName(stage Stage, ownerID string) string {
 	return fmt.Sprintf("gitpod-%s-user-%s", stage, ownerID)
 }
 
+func gcpWorkspaceBackupObjectName(workspaceID string, name string) string {
+	return fmt.Sprintf("%s/%s", workspaceID, name)
+}
+
 func (rs *DirectGCPStorage) workspacePrefix() string {
 	return fmt.Sprintf("workspaces/%s", rs.WorkspaceName)
 }
 
 func (rs *DirectGCPStorage) objectName(name string) string {
-	return fmt.Sprintf("%s/%s", rs.workspacePrefix(), name)
+	return gcpWorkspaceBackupObjectName(rs.workspacePrefix(), name)
 }
 
 func (rs *DirectGCPStorage) trailPrefix() string {
@@ -915,4 +915,9 @@ func (p *PresignedGCPStorage) DeleteObject(ctx context.Context, bucket string, q
 		}
 	}
 	return err
+}
+
+// BackupObject returns a backup's object name that a direct downloader would download
+func (p *PresignedGCPStorage) BackupObject(workspaceID string, name string) string {
+	return gcpWorkspaceBackupObjectName(workspaceID, name)
 }

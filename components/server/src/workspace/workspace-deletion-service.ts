@@ -87,19 +87,13 @@ export class WorkspaceDeletionService {
      * @param includeSnapshots 
      */
     protected async deleteWorkspaceStorage(ws: WorkspaceAndOwner, includeSnapshots: boolean): Promise<boolean> {
-        let prefix = `workspaces/${ws.id}`;
-
         try {
-            const bucketName = this.storageClient.bucketName(ws.ownerId);
-            if (includeSnapshots) {
-                await this.storageClient.deleteObjects(bucketName, prefix);
-            } else {
-                await this.storageClient.deleteObjects(bucketName, `${prefix}/full.tar`);
-                await this.storageClient.deleteObjects(bucketName, `${prefix}/trail-`);
-            }
+            await this.storageClient.deleteWorkspaceBackups(ws.ownerId, ws.id, includeSnapshots);
             return true;
-        } catch (err) {
-            if ('code' in err && err.code == 404) {
+        }
+        catch (err) {
+            // TODO: 404 error
+            if (err === "404") {
                 return false;
             } else {
                 throw err;

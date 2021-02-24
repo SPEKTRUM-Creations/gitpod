@@ -27,5 +27,6 @@ message DownloadUrlWorkspaceResponse {
 message DeleteWorkspaceRequest {
     string owner_id = 1;
     string workspace_id = 2;
+    bool include_snapshots = 3;
 }
 message DeleteWorkspaceResponse {}

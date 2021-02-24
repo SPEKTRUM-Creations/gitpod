@@ -413,7 +413,8 @@ proto.contentservice.DeleteWorkspaceRequest.prototype.toObject = function(opt_in
 proto.contentservice.DeleteWorkspaceRequest.toObject = function(includeInstance, msg) {
   var f, obj = {
     ownerId: jspb.Message.getFieldWithDefault(msg, 1, ""),
-    workspaceId: jspb.Message.getFieldWithDefault(msg, 2, "")
+    workspaceId: jspb.Message.getFieldWithDefault(msg, 2, ""),
+    includeSnapshots: jspb.Message.getFieldWithDefault(msg, 3, false)
   };
 
   if (includeInstance) {
@@ -458,6 +459,10 @@ proto.contentservice.DeleteWorkspaceRequest.deserializeBinaryFromReader = functi
       var value = /** @type {string} */ (reader.readString());
       msg.setWorkspaceId(value);
       break;
+    case 3:
+      var value = /** @type {boolean} */ (reader.readBool());
+      msg.setIncludeSnapshots(value);
+      break;
     default:
       reader.skipField();
       break;
@@ -501,6 +506,13 @@ proto.contentservice.DeleteWorkspaceRequest.serializeBinaryToWriter = function(m
       f
     );
   }
+  f = message.getIncludeSnapshots();
+  if (f) {
+    writer.writeBool(
+      3,
+      f
+    );
+  }
 };
 
 
@@ -531,6 +543,23 @@ proto.contentservice.DeleteWorkspaceRequest.prototype.getWorkspaceId = function(
 /** @param {string} value */
 proto.contentservice.DeleteWorkspaceRequest.prototype.setWorkspaceId = function(value) {
   jspb.Message.setProto3StringField(this, 2, value);
+};
+
+
+/**
+ * optional bool include_snapshots = 3;
+ * Note that Boolean fields may be set to 0/1 when serialized from a Java server.
+ * You should avoid comparisons like {@code val === true/false} in those cases.
+ * @return {boolean}
+ */
+proto.contentservice.DeleteWorkspaceRequest.prototype.getIncludeSnapshots = function() {
+  return /** @type {boolean} */ (jspb.Message.getFieldWithDefault(this, 3, false));
+};
+
+
+/** @param {boolean} value */
+proto.contentservice.DeleteWorkspaceRequest.prototype.setIncludeSnapshots = function(value) {
+  jspb.Message.setProto3BooleanField(this, 3, value);
 };
 
 

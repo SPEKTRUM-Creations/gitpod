@@ -38,9 +38,6 @@ components:
       address: "ws-manager:8080"
     - name: "dev"
       address: "ws-manager-dev:8080"
-
-  registryFacade:
-    daemonSet: true
   
   contentService:
     remoteStorage:

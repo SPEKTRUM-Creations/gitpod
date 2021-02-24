@@ -17,23 +17,23 @@ import (
 	"google.golang.org/grpc/status"
 )
 
-// ContentService implements ContentServiceServer
-type ContentService struct {
+// BlobsService implements BlobServiceServer
+type BlobsService struct {
 	cfg storage.Config
 	s   storage.PresignedAccess
 }
 
-// NewContentService create a new content service
-func NewContentService(cfg storage.Config) (res *ContentService, err error) {
+// NewBlobsService create a new content service
+func NewBlobsService(cfg storage.Config) (res *BlobsService, err error) {
 	s, err := storage.NewPresignedAccess(&cfg)
 	if err != nil {
 		return nil, err
 	}
-	return &ContentService{cfg, s}, nil
+	return &BlobsService{cfg, s}, nil
 }
 
 // UploadUrl provides a upload URL
-func (cs *ContentService) UploadUrl(ctx context.Context, req *api.UploadUrlRequest) (resp *api.UploadUrlResponse, err error) {
+func (cs *BlobsService) UploadUrl(ctx context.Context, req *api.UploadUrlRequest) (resp *api.UploadUrlResponse, err error) {
 	span, ctx := opentracing.StartSpanFromContext(ctx, "UploadUrl")
 	span.SetTag("user", req.OwnerId)
 	span.SetTag("name", req.Name)
@@ -84,7 +84,7 @@ func (cs *ContentService) UploadUrl(ctx context.Context, req *api.UploadUrlReque
 }
 
 // DownloadUrl provides a download URL
-func (cs *ContentService) DownloadUrl(ctx context.Context, req *api.DownloadUrlRequest) (resp *api.DownloadUrlResponse, err error) {
+func (cs *BlobsService) DownloadUrl(ctx context.Context, req *api.DownloadUrlRequest) (resp *api.DownloadUrlResponse, err error) {
 	span, ctx := opentracing.StartSpanFromContext(ctx, "DownloadUrl")
 	span.SetTag("user", req.OwnerId)
 	span.SetTag("name", req.Name)
@@ -112,7 +112,7 @@ func (cs *ContentService) DownloadUrl(ctx context.Context, req *api.DownloadUrlR
 }
 
 // Delete deletes the uploaded content
-func (cs *ContentService) Delete(ctx context.Context, req *api.DeleteRequest) (resp *api.DeleteResponse, err error) {
+func (cs *BlobsService) Delete(ctx context.Context, req *api.DeleteRequest) (resp *api.DeleteResponse, err error) {
 	span, ctx := opentracing.StartSpanFromContext(ctx, "Delete")
 	span.SetTag("user", req.OwnerId)
 	span.SetTag("name", req.Name)

@@ -249,6 +249,10 @@ func minioBucketName(ownerID string) string {
 	return fmt.Sprintf("gitpod-user-%s", ownerID)
 }
 
+func minioWorkspaceBackupObjectName(workspaceID string, name string) string {
+	return fmt.Sprintf("workspaces/%s/%s", workspaceID, name)
+}
+
 // Bucket provides the bucket name for a particular user
 func (rs *DirectMinIOStorage) Bucket(ownerID string) string {
 	return minioBucketName(ownerID)
@@ -264,7 +268,7 @@ func (rs *DirectMinIOStorage) bucketName() string {
 }
 
 func (rs *DirectMinIOStorage) objectName(name string) string {
-	return fmt.Sprintf("workspaces/%s/%s", rs.WorkspaceName, name)
+	return minioWorkspaceBackupObjectName(rs.WorkspaceName, name)
 }
 
 func newPresignedMinIOAccess(cfg MinIOConfig) (*presignedMinIOStorage, error) {
@@ -407,6 +411,11 @@ func (s *presignedMinIOStorage) Bucket(ownerID string) string {
 // BlobObject returns a blob's object name
 func (s *presignedMinIOStorage) BlobObject(name string) (string, error) {
 	return blobObjectName(name)
+}
+
+// BackupObject returns a backup's object name that a direct downloader would download
+func (s *presignedMinIOStorage) BackupObject(workspaceID string, name string) string {
+	return minioWorkspaceBackupObjectName(workspaceID, name)
 }
 
 func translateMinioError(err error) error {

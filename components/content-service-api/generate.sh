@@ -1,4 +1,6 @@
-#!/bin/base
+#!/bin/bash
+
+shopt -s extglob
 
 GO111MODULE=on go get github.com/golang/protobuf/protoc-gen-go@v1.3.5
 protoc -I. --go_out=plugins=grpc:. *.proto
@@ -13,3 +15,5 @@ protoc --plugin=protoc-gen-ts=`which protoc-gen-ts` --ts_out=src -I /usr/lib/pro
 cd ..
 
 go generate typescript/util/generate-ws-ready.go
+
+leeway run components:update-license-header

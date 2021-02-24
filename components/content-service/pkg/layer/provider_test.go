@@ -239,6 +239,10 @@ func (s *testStorage) DeleteObject(ctx context.Context, bucket string, query *st
 	return nil
 }
 
+func (*testStorage) BackupObject(workspaceID string, name string) string {
+	return ""
+}
+
 type roundTripFunc func(req *http.Request) *http.Response
 
 // RoundTrip .

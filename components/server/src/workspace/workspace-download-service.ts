@@ -49,13 +49,10 @@ export class WorkspaceDownloadService {
                     return;
                 }
 
-                const bucketName = this.storageClient.bucketName(userId);
-                const path = `/workspaces/${workspaceId}/full.tar`;
-                const signedUrl = await this.storageClient.createSignedUrl(bucketName, path, "read", {
-                    promptSaveAs: `${workspaceId}.tar`
-                });
+                const signedUrl = await this.storageClient.createWorkspaceContentDownloadUrl(userId, workspaceId);
 
                 log.info({ workspaceId, userId }, "user is downloading workspace content");
+                log.info(signedUrl); // TODO remove me
                 res.send(signedUrl);
             } catch (err) {
                 log.error({workspaceId}, "cannot prepare workspace download", err);
