@@ -315,4 +315,24 @@ export class TheiaPluginService {
         return new Set<string>(json);
     }
 
+    async getCodeSyncResource(userId: string): Promise<string> {
+        interface ISyncExtension {
+            identifier: {
+                id: string
+            };
+            version?: string;
+        }
+        const extensions: ISyncExtension[] = []
+        const userPlugins = await this.getUserPlugins(userId);
+        for (const userPlugin of userPlugins) {
+            const fullPluginName = this.toFullPluginName(userPlugin); // drop hash
+            const { name, version } = this.parseFullPluginName(fullPluginName);
+            extensions.push({
+                identifier: { id: name },
+                version
+            });
+        }
+        return JSON.stringify(extensions);
+    }
+
 }
