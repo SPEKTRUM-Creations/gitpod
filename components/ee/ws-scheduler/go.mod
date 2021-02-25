@@ -3,17 +3,7 @@ module github.com/gitpod-io/gitpod/ws-scheduler
 go 1.12
 
 require (
-	github.com/docker/distribution v0.0.0-20170726174610-edc3ab29cdff
-	github.com/Rican7/retry v0.1.0 // indirect
-	github.com/bazelbuild/bazel-gazelle v0.0.0-20181012220611-c728ce9f663e // indirect
-	github.com/cespare/prettybench v0.0.0-20150116022406-03b8cfe5406c // indirect
-	github.com/cloudflare/cfssl v0.0.0-20180726162950-56268a613adf // indirect
-	github.com/codedellemc/goscaleio v0.0.0-20170830184815-20e2ce2cf885 // indirect
-	github.com/coreos/rkt v1.30.0 // indirect
-	github.com/cpuguy83/go-md2man v1.0.4 // indirect
-	github.com/d2g/dhcp4 v0.0.0-20170904100407-a1d1b6c41b1c // indirect
-	github.com/d2g/dhcp4client v0.0.0-20170829104524-6e570ed0a266 // indirect
-	github.com/docker/libnetwork v0.0.0-20180830151422-a9cd636e3789 // indirect
+	github.com/docker/distribution v2.7.1+incompatible
 	github.com/gitpod-io/gitpod/common-go v0.0.0-00010101000000-000000000000
 	github.com/gitpod-io/gitpod/content-service/api v0.0.0-00010101000000-000000000000
 	github.com/gitpod-io/gitpod/ws-manager/api v0.0.0-00010101000000-000000000000

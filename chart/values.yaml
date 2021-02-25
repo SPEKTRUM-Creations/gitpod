@@ -425,6 +425,9 @@ components:
       cpu: 100m
       memory: 32Mi
     schedulerName: "workspace-scheduler"
+    ratelimit:
+      bucketSize: 50
+      refillInterval: 5s
     scaler:
       enabled: false
       maxGhostWorkspaces: 10

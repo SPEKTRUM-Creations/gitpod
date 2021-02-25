@@ -30,6 +30,12 @@ data:
                 "workspaceFreshPeriodSeconds": 120,
                 "nodeFreshWorkspaceLimit": 2
             }
+            {{- if $comp.ratelimit }}
+            , "rateLimit": {
+                "bucketSize": {{ $comp.ratelimit.bucketSize }},
+                "refillInterval": {{ $comp.ratelimit.refillInterval }}
+            }
+            {{- end }}
         }
         {{ if $comp.scaler.enabled }}
         ,
